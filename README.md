@@ -143,14 +143,14 @@ After cloning the repository you will need to:
     {% extends "base.html" %}
     {% block title %} Signup {% endblock %}
     {% block content %}
-    <form action="" method="post" novalidate>
-       {{ form.hidden_tag() }}
-       <p>{{ form.name.label }}<br>{{ form.name(size=32) }}</p>
-       <p>{{ form.email.label }}<br>{{ form.email(size=32) }}</p>
+    <form action="" method="post" novalidate>
+       {{ form.hidden_tag() }}
+       <p>{{ form.name.label }}<br>{{ form.name(size=32) }}</p>
+       <p>{{ form.email.label }}<br>{{ form.email(size=32) }}</p>
        <p>{{ form.password.label }}<br>{{ form.password }}</p>
-       <p>{{ form.confirm.label }}<br>{{ form.confirm }}</p>
-       <p>{{ form.submit() }}</p>
-    </form>
+       <p>{{ form.confirm.label }}<br>{{ form.confirm }}</p>
+       <p>{{ form.submit() }}</p>
+    </form>
     {% endblock %}
     ```
 3. Add a route for signup to `app/main/routes.py`  (Controller)
@@ -167,7 +167,7 @@ After cloning the repository you will need to:
        form = SignupForm(request.form)
        if request.method == 'POST' and form.validate():
            flash('Signup requested for {}'.format(form.name.data))
-           # Code to add the student to the database goes here
+           # Code to add the student to the database goes here
            return redirect(url_for('main.index'))
        return render_template('signup.html', form=form)
 
