@@ -22,7 +22,7 @@ After cloning the repository you will need to:
     2. Index.html (view) has already been created in the ‘templates’ folder.
     3. Create a python package within the ‘app’ package called ‘main’. Move routes.py (controller) to ‘main’.
 4. Edit config.py and create your own SECRET_KEY. To do this open a Python Console (bottom of PyCharm window) and enter:
-    ```
+    ```python
     import secrets
     secrets.token_urlsafe(16)
     ```
@@ -76,15 +76,15 @@ After cloning the repository you will need to:
 1. Create `layout.html` in the templates folder.
     1. Open index.html and 'save as' to create layout.html
     2. Edit layout.html so that the `<title>` can be set for each page using a Jinja2 expression
-        ```
+        ```jinja2
         {#  Allows each page title to be set using a variable named 'title' #}
         {% block title %}{{ title }}{% endblock %}
         ```
     3. Edit layout.html so that within the main div there is a Jinja2 statement for the main content e.g.
-        ```
-        <!-- Child pages add page specific content here -->
+        ```jinja2
+       {# Child pages add page specific content here #}
        {% block content %}
-        {% endblock %}
+       {% endblock %}
         ```
     4. Update the reference to the static css file with a Jinja2 reference:
     ```jinja2
@@ -95,7 +95,7 @@ After cloning the repository you will need to:
     2. Provide the page title ‘home’ in the title block e.g. `{% block title %} Home {% endblock %}`
     3. Add a new Jinja2 variable name to create a tag that would be result in `<h1>Hello, name</h1>` e.g. `<h1>Hello, {{ name }}</h1>`
 3. Edit the default route in `app\__init__py` so that it renders index.html using the Flask function `render_template()`
-    ```
+    ```python
     from flask import render_template
 
    @app.route('/')
@@ -107,7 +107,7 @@ After cloning the repository you will need to:
 ### Activity 3 Create a blueprint for the `main` package
 1. Delete the route for index from the `create_app()` function in `app\__init__py`.
 2. Edit `routes.py` in main with the following:
-   ```
+   ```python
    from flask import Blueprint
 
    bp_main = Blueprint('main', __name__)
@@ -118,16 +118,16 @@ After cloning the repository you will need to:
    ```
    This creates a Blueprint named 'main'. 
 3. Import and register the blueprint from the factory using `app.register_blueprint()`. Place the new code at the end of the `create_app()` function before returning the app.
-    ```
+    ```python
    # Register Blueprints
-    from app.main import bp_main
-        app.register_blueprint(bp_main)
+   from app.main import bp_main
+       app.register_blueprint(bp_main)
    ```
 4. Stop and restart the Flask app.
 
 ### Activity 4: Create a sign-up form using Flask-WTForms
 1. In `app/main` create `forms.py` with a python class for the form  (Model)
-    ```
+    ```python
     from flask_wtf import FlaskForm
     from wtforms import SubmitField, StringField, PasswordField
     from wtforms.validators import DataRequired, EqualTo, Email
@@ -142,7 +142,7 @@ After cloning the repository you will need to:
 
     ```
 2. In `app/templates` create a Jinja2 template called `signup.html`  (View) 
-    ```
+    ```html
     {% extends "base.html" %}
     {% block title %} Signup {% endblock %}
     {% block content %}
@@ -157,7 +157,7 @@ After cloning the repository you will need to:
     {% endblock %}
     ```
 3. Add a route for signup to `app/main/routes.py`  (Controller)
-    ```
+    ```python
    from flask import render_template, Blueprint, request, flash, redirect, url_for
 
    from app.main.forms import SignupForm
@@ -165,8 +165,8 @@ After cloning the repository you will need to:
    bp_main = Blueprint('main', __name__)
 
 
-    @bp_main.route('/signup/', methods=['POST', 'GET'])
-    def signup():
+   @bp_main.route('/signup/', methods=['POST', 'GET'])
+   def signup():
        form = SignupForm(request.form)
        if request.method == 'POST' and form.validate():
            flash('Signup requested for {}'.format(form.name.data))
@@ -179,8 +179,8 @@ After cloning the repository you will need to:
 
 ### Activity 5: Enable flash messaging
 1. Add the following code to the start of the main div in the base template.
-    ```
-    <!-- Displays flashed messages on a page -->
+    ```jinja2
+    {# Displays flashed messages on a page #}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul>
@@ -192,7 +192,7 @@ After cloning the repository you will need to:
     {% endwith %}
     ```
 2. Add the following code to the start of the content block in `signup.html`
-    ```
+    ```jinja2
     {% if form.errors %}
         <p><strong>The form contains errors:</strong>
         <ul>
