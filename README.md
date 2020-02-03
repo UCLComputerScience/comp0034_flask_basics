@@ -177,15 +177,15 @@ After cloning the repository you will need to:
 ### Activity 5: Enable flash messaging
 1. Add the following code to the start of the main div in the base template.
     ```
-    <!-- Displays flashed messages on a page -->
-    {% with messages = get_flashed_messages() %}    
-        {% if messages %}        
-            <ul>            
-            {% for message in messages %}                
-                <li>{{ message }}</li>            
-            {% endfor %}        
-            </ul>    
-        {% endif %}
+    <!-- Displays flashed messages on a page -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}      
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
     {% endwith %}
     ```
 2. Add the following code to the start of the content block in `signup.html`
