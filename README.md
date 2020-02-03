@@ -28,7 +28,7 @@ After cloning the repository you will need to:
     ```
     You can then copy and paste the resulting key into config.py.
 5. Create the Flask app using the factory pattern. Open `app/__init__.py` and add the following:
-    ```
+    ```python
    from flask import Flask
    from flask_sqlalchemy import SQLAlchemy
    from config import DevConfig
@@ -38,28 +38,28 @@ After cloning the repository you will need to:
    db = SQLAlchemy()
 
    def create_app(config_class=DevConfig):
-    """
-    Creates an application instance to run
-    :return: A Flask object
-    """
-   app = Flask(__name__)
+       """
+        Creates an application instance to run
+        :return: A Flask object
+        """
+       app = Flask(__name__)
 
-   # Configure app wth the settings from config.py
-   app.config.from_object(config_class)
+       # Configure app wth the settings from config.py
+       app.config.from_object(config_class)
    
-   # Allow the app to access to the database
-   db.init_app(app)
-   # Import the models and then create the database with the tables
-   from app.models import Teacher, Student, Course, Grade
-   with app.app_context():
-        db.create_all()
+       # Allow the app to access to the database
+       db.init_app(app)
+       # Import the models and then create the database with the tables
+       from app.models import Teacher, Student, Course, Grade
+       with app.app_context():
+           db.create_all()
    
-   # Default route to be moved later in the lecture
-   @app.route('/')
-   def index():
-       return "Hello, World!"
+       # Default route to be moved later in the lecture
+       @app.route('/')
+       def index():
+           return "Hello, World!"
 
-   return app
+       return app
    ```
 6. Edit app.py to call the create_app() function to run your Flask app.
     ```python
