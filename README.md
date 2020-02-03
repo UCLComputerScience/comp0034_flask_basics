@@ -86,6 +86,10 @@ After cloning the repository you will need to:
        {% block content %}
         {% endblock %}
         ```
+    4. Update the reference to the static css file with a Jinja2 reference:
+    ```jinja2
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    ```
 2. Create a new HTML file called index.html in the templates folder and delete the provided HTML code. Add Jinja2 code to:
     1. Inherit (extends) `layout.html` e.g. `{% extends "layout.html" %}`
     2. Provide the page title ‘home’ in the title block e.g. `{% block title %} Home {% endblock %}`
@@ -114,12 +118,11 @@ After cloning the repository you will need to:
    ```
    This creates a Blueprint named 'main'. 
 3. Import and register the blueprint from the factory using `app.register_blueprint()`. Place the new code at the end of the `create_app()` function before returning the app.
-
-        ```python
-        # Register Blueprints
-        from app.main import bp_main
+    ```
+   # Register Blueprints
+    from app.main import bp_main
         app.register_blueprint(bp_main)
-        ```
+   ```
 4. Stop and restart the Flask app.
 
 ### Activity 4: Create a sign-up form using Flask-WTForms
